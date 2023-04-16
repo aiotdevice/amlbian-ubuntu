@@ -1,0 +1,114 @@
+#!/bin/bash
+# create_sources_list
+# install_distribution_specific
+# tweaks_distribution
+
+
+## create_sources_list <release> <basedir>
+##
+## <release>: buster|bionic|focal|jammy
+## <basedir>: path to root directory
+create_sources_list()
+{
+	local release=$1
+	local basedir=$2
+	[[ -z $basedir ]] && error_msg "No basedir passed to create_sources_list" && return -1
+
+	case $release in
+	bionic|focal|hirsute|jammy)
+	cat <<-EOF | tee $basedir/etc/apt/sources.list
+	deb http://${DEBIAN_MIRROR} $release main restricted universe multiverse
+	#deb-src http://${DEBIAN_MIRROR} $release main restricted universe multiverse
+
+	deb http://${DEBIAN_MIRROR} ${release}-security main restricted universe multiverse
+	#deb-src http://${DEBIAN_MIRROR} ${release}-security main restricted universe multiverse
+
+	deb http://${DEBIAN_MIRROR} ${release}-updates main restricted universe multiverse
+	#deb-src http://${DEBIAN_MIRROR} ${release}-updates main restricted universe multiverse
+
+	deb http://${DEBIAN_MIRROR} ${release}-backports main restricted universe multiverse
+	#deb-src http://${DEBIAN_MIRROR} ${release}-backports main restricted universe multiverse
+	EOF
+	;;
+	esac
+}
+
+
+
+install_distribution_specific()
+{
+	# overload
+	if [[ $(type -t ${FUNCNAME[0]}_) == function ]]; then
+	    ${FUNCNAME[0]}_
+	    return
+	fi
+
+	info_msg "Applying distribution specific tweaks for $DISTRIB_RELEASE"
+
+	case $DISTRIB_RELEASE in
+	bionic|focal|jammy)
+		# remove doubled uname from motd
+		[[ -f $ROOTFS_TEMP/etc/update-motd.d/10-uname ]] && rm $ROOTFS_TEMP/etc/update-motd.d/10-uname
+		# remove motd news from motd.ubuntu.com
+		[[ -f $ROOTFS_TEMP/etc/default/motd-news ]] && sed -i "s/^ENABLED=.*/ENABLED=0/" $ROOTFS_TEMP/etc/default/motd-news
+		# Basic Netplan config. Let NetworkManager manage all devices on this system
+		[[ -d $ROOTFS_TEMP/etc/netplan ]] && cat <<-EOF > $ROOTFS_TEMP/etc/netplan/amlbian-default.yaml
+		network:
+		  version: 2
+		  renderer: NetworkManager
+		EOF
+		# DNS fix
+		sed -i "s/#DNS=.*/DNS=$NAMESERVER/g" $ROOTFS_TEMP/etc/systemd/resolved.conf
+		chroot $ROOTFS_TEMP /bin/bash -c "systemctl --no-reload mask ondemand.service"
+		if [ "$DISTRIB_TYPE" != "minimal" ]; then
+			# disable watchdog
+			eval 'LC_ALL=C LANG=C chroot $ROOTFS_TEMP /bin/bash -c "systemctl disable watchdog.service"'
+			# Disable Lirc service
+			eval 'LC_ALL=C LANG=C chroot $ROOTFS_TEMP /bin/bash -c "systemctl disable lircd.socket lircd.service lircd-setup.service lircd-uinput.service lircmd.service irexec.service"'
+			# Disable hostapd
+			eval 'LC_ALL=C LANG=C chroot $ROOTFS_TEMP /bin/bash -c "systemctl disable hostapd.service"'
+		fi
+		# Journal service adjustments
+		sed -i "s/#Storage=.*/Storage=volatile/g" $ROOTFS_TEMP/etc/systemd/journald.conf
+		sed -i "s/#Compress=.*/Compress=yes/g" $ROOTFS_TEMP/etc/systemd/journald.conf
+		sed -i "s/#RateLimitIntervalSec=.*/RateLimitIntervalSec=30s/g" $ROOTFS_TEMP/etc/systemd/journald.conf
+		sed -i "s/#RateLimitBurst=.*/RateLimitBurst=10000/g" $ROOTFS_TEMP/etc/systemd/journald.conf
+		echo "CLUTTER_PAINT=disable-clipped-redraws:disable-culling" >> $ROOTFS_TEMP/etc/environment
+		;;
+	esac
+}
+
+post_install_distribution_specific()
+{
+	# overload
+	if [[ $(type -t ${FUNCNAME[0]}_) == function ]]; then
+	    ${FUNCNAME[0]}_
+	    return
+	fi
+
+	info_msg "Applying post distribution specific tweaks for $DISTRIB_RELEASE"
+
+	case $DISTRIB_RELEASE in
+	bionic|focal|jammy)
+		chroot $ROOTFS_TEMP /bin/bash -c "systemctl --no-reload mask ondemand.service"
+		if [ "$DISTRIB_TYPE" != "minimal" ]; then
+            echo "disable some useless service"
+            # Disable aml_key_inject
+            eval 'LC_ALL=C LANG=C chroot $ROOTFS_TEMP /bin/bash -c "systemctl disable  aml_key_inject.service "'
+            # Disable rc-local.service
+            eval 'LC_ALL=C LANG=C chroot $ROOTFS_TEMP /bin/bash -c "systemctl disable  rc-local.service "'
+            # Disable pipewire.service
+            eval 'LC_ALL=C LANG=C chroot $ROOTFS_TEMP /bin/bash -c "systemctl disable --global pipewire.service "'
+		fi
+		;;
+	esac
+}
+
+
+## tweaks for distribution
+tweaks_distribution() {
+	# remove legal info from Ubuntu
+	[[ -f $ROOTFS_TEMP/etc/legal ]] && rm $ROOTFS_TEMP/etc/legal
+}
+
+
