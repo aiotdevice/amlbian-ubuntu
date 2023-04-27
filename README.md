@@ -18,30 +18,31 @@ the system information:
 + gnome desktop system
 
 ## How to use
-Please copy the config/Ubuntu folder as the following,
-copy the config-t7-jammy.conf files to the amlbian root folder, like following. 
+In root folder (the folder you run "repo init"), 
+git clone this repository. the you can see the following folder.
 ```
+$ ls 
 amlbian
-├─packages
-├─archives
-├─docs
-├─env
-├─scripts
-├─packages-patch
-└─config
-    ├─boards
-    ├─bootenv
-    ├─bootscripts
-    ├─Debian
-    ├─functions
-    ├─kernel-config
-    └─Ubuntu
-├─config-t7-jammy.conf
+amlbian-ubuntu
+...
 ```
-## How to build
-then run the following command to build ubuntu desktop system:
+Then execute the shell script, before build amlbian.
 ```
-./docker-run-debian.sh config-t7-jammy.conf
+$ cd amlbian-ubuntu
+$ ./copy_2_amlbian.sh
+copy the Ubuntu relative script to amlbian project
+copy done...
+```
+Then you can start to build Ubuntu image, with the follow config file. 
+(need root)
+```
+source setenv.sh amlbian/config-t7-jammy.conf
+./build.sh
+```
+
+Or you can build with docker. (needn't root)
+```
+docker-run-debian.sh config-t7-jammy.conf
 ```
 
 More information, please refer to the documents from Amlogic.
