@@ -1,6 +1,7 @@
 
 # amlbian-ubuntu
 support ubuntu in amlbian
+Please select the tag according to the release version. 
 
 ## background
 Amlogic support ubuntu and debian in their AIOT SOCs, such as:
@@ -49,4 +50,5 @@ More information, please refer to the documents from Amlogic.
 
 
 Please star if it's helpful for you, thanks a lot. 
+
 
