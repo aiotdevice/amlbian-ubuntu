@@ -1,7 +1,9 @@
 
 # amlbian-ubuntu
-support ubuntu in amlbian
+support ubuntu in amlbian,
 Please select the tag according to the release version. 
+main : https://github.com/aiotdevice/amlbian-ubuntu/tree/main
+V1.0 : https://github.com/aiotdevice/amlbian-ubuntu/tree/V1.0_20230430
 
 ## background
 Amlogic support ubuntu and debian in their AIOT SOCs, such as:
