@@ -1,9 +1,11 @@
 
 # amlbian-ubuntu
-support ubuntu in amlbian,
-Please select the tag according to the release version. 
+support ubuntu in amlbian  
+Please select the tag according to the release version.  
+```
 main : https://github.com/aiotdevice/amlbian-ubuntu/tree/main
 V1.0 : https://github.com/aiotdevice/amlbian-ubuntu/tree/V1.0_20230430
+```
 
 ## background
 Amlogic support ubuntu and debian in their AIOT SOCs, such as:
@@ -14,15 +16,15 @@ Amlogic support ubuntu and debian in their AIOT SOCs, such as:
 It support GPU speed up, video decode hardware, and Neural network hardware speed up. 
 
 ## What we do
-The official release version only support debian.
-After study the amlbian project, I have added the Ubuntu+gnome desktop system, and it's works well.
-the system information:
+The official release version only support debian.  
+After study the amlbian project, I have added the Ubuntu+gnome desktop system, and it's works well.  
+the system information:  
 + Ubuntu 22.04
 + gnome desktop system
 
 ## How to use
-In root folder (the folder you run "repo init"), 
-git clone this repository. the you can see the following folder.
+In root folder (the folder you run "repo init"),   
+git clone this repository. the you can see the following folder.  
 ```
 $ ls 
 amlbian
