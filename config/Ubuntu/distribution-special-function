@@ -102,6 +102,21 @@ post_install_distribution_specific()
 		fi
 		;;
 	esac
+	
+	# Enable autologin for default user
+	if [ -e $ROOTFS_TEMP/etc/gdm3/custom.conf ]; then
+		sed -i "s/#  AutomaticLoginEnable =.*/AutomaticLoginEnable=true/" $ROOTFS_TEMP/etc/gdm3/custom.conf
+		sed -i "s/#  AutomaticLogin =.*/AutomaticLogin=amlbian/" $ROOTFS_TEMP/etc/gdm3/custom.conf
+	fi
+
+	sed -i 's/#LogLevel=info/LogLevel=warning/' $ROOTFS_TEMP/etc/systemd/system.conf
+
+	# make sure sudoers file has ref for the sudo group
+	SUDOEXISTS="$(awk '$1 == "%sudo" { print $1 }' $ROOTFS_TEMP/etc/sudoers)"
+	if [ -z "$SUDOEXISTS" ]; then
+		echo "# Members of the sudo group may gain root privileges" >> $ROOTFS_TEMP/etc/sudoers
+		echo "%sudo	ALL=(ALL) NOPASSWD: ALL" >> $ROOTFS_TEMP/etc/sudoers
+	fi
 }
 
 
