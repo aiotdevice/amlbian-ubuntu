@@ -56,9 +56,17 @@ case $DISTRIB_RELEASE in
 	;;
 esac
 
+# add for debug tools
+if [ "$BUILD_TYPE" == develop ]; then
+	# add for GPU test
+	PACKAGE_LIST_DESKTOP+=" glmark2-es2-wayland"
+	
+	# add common debug tool here for develop version
+	PACKAGE_LIST+=" silversearcher-ag ftrace v4l-utils tilix adb ftrace "
+fi
+
 
 DEBIAN_MIRROR='ports.ubuntu.com/'
-
 
 if [[ $DOWNLOAD_MIRROR == china ]] ; then
 	DEBIAN_MIRROR='mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/'
