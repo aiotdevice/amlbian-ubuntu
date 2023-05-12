@@ -62,7 +62,7 @@ if [ "$BUILD_TYPE" == develop ]; then
 	PACKAGE_LIST_DESKTOP+=" glmark2-es2-wayland"
 	
 	# add common debug tool here for develop version
-	PACKAGE_LIST+=" silversearcher-ag ftrace v4l-utils tilix adb ftrace "
+	PACKAGE_LIST+=" silversearcher-ag v4l-utils tilix adb ftrace "
 fi
 
 
