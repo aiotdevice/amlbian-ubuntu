@@ -68,7 +68,7 @@ fi
 DEBIAN_MIRROR='ports.ubuntu.com/'
 
 if [[ $DOWNLOAD_MIRROR == china ]] ; then
-	DEBIAN_MIRROR='mirrors.aliyun.com/ubuntu'
+	DEBIAN_MIRROR='mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/'
 fi
 
 # apt-cacher-ng mirror configuration
