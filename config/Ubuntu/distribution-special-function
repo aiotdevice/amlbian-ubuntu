@@ -117,6 +117,14 @@ post_install_distribution_specific()
 		echo "# Members of the sudo group may gain root privileges" >> $ROOTFS_TEMP/etc/sudoers
 		echo "%sudo	ALL=(ALL) NOPASSWD: ALL" >> $ROOTFS_TEMP/etc/sudoers
 	fi
+
+	# support GPU for QTwayland5wayland
+	if [ -f "$ROOTFS_TEMP"/usr/lib/aarch64-linux-gnu/qt5/plugins/wayland-graphics-integration-client/libqt-plugin-wayland-egl.so ]; then
+		ls -al "$ROOTFS_TEMP"/usr/lib/aarch64-linux-gnu/qt5/plugins/wayland-graphics-integration-client/libqt-plugin-wayland-egl.so
+		rm "$ROOTFS_TEMP"/usr/lib/aarch64-linux-gnu/qt5/plugins/wayland-graphics-integration-client/libqt-plugin-wayland-egl.so
+		ln -sf  "$ROOTFS_TEMP"/usr/lib/libMali.so "$ROOTFS_TEMP"/usr/lib/aarch64-linux-gnu/qt5/plugins/wayland-graphics-integration-client/libqt-plugin-wayland-egl.so
+		ls -al "$ROOTFS_TEMP"/usr/lib/aarch64-linux-gnu/qt5/plugins/wayland-graphics-integration-client/libqt-plugin-wayland-egl.so
+	fi
 }
 
 
