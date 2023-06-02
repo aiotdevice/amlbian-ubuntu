@@ -5,7 +5,9 @@ Please select the tag according to the release version.
 ```
 main : https://github.com/aiotdevice/amlbian-ubuntu/tree/main
 V1.0 : https://github.com/aiotdevice/amlbian-ubuntu/tree/V1.0_20230430
+V2.0 : https://github.com/aiotdevice/amlbian-ubuntu/tree/V2.0_20230602
 ```
+
 
 ## background
 Amlogic support ubuntu and debian in their AIOT SOCs, such as:
