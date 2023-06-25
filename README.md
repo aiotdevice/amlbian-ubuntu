@@ -1,6 +1,6 @@
 
 # amlbian-ubuntu
-support ubuntu in amlbian  
+Support ubuntu in amlbian  
 Please select the tag according to the release version.  
 ```
 main : https://github.com/aiotdevice/amlbian-ubuntu/tree/main
@@ -20,7 +20,7 @@ It support GPU speed up, video decode hardware, and Neural network hardware spee
 ## What we do
 The official release version only support debian.  
 After study the amlbian project, I have added the Ubuntu+gnome desktop system, and it's works well.  
-the system information:  
+The system information:  
 + Ubuntu 22.04
 + gnome desktop system
 
