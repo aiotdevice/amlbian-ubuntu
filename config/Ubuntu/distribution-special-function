@@ -6,7 +6,7 @@
 
 ## create_sources_list <release> <basedir>
 ##
-## <release>: buster|bionic|focal|jammy
+## <release>: jammy
 ## <basedir>: path to root directory
 create_sources_list()
 {
@@ -15,7 +15,7 @@ create_sources_list()
 	[[ -z $basedir ]] && error_msg "No basedir passed to create_sources_list" && return -1
 
 	case $release in
-	bionic|focal|hirsute|jammy)
+	jammy)
 	cat <<-EOF | tee $basedir/etc/apt/sources.list
 	deb http://${DEBIAN_MIRROR} $release main restricted universe multiverse
 	#deb-src http://${DEBIAN_MIRROR} $release main restricted universe multiverse
@@ -46,7 +46,7 @@ install_distribution_specific()
 	info_msg "Applying distribution specific tweaks for $DISTRIB_RELEASE"
 
 	case $DISTRIB_RELEASE in
-	bionic|focal|jammy)
+	jammy)
 		# remove doubled uname from motd
 		[[ -f $ROOTFS_TEMP/etc/update-motd.d/10-uname ]] && rm $ROOTFS_TEMP/etc/update-motd.d/10-uname
 		# remove motd news from motd.ubuntu.com
@@ -75,6 +75,11 @@ install_distribution_specific()
 		sed -i "s/#RateLimitBurst=.*/RateLimitBurst=10000/g" $ROOTFS_TEMP/etc/systemd/journald.conf
 		echo "CLUTTER_PAINT=disable-clipped-redraws:disable-culling" >> $ROOTFS_TEMP/etc/environment
 		;;
+		
+		#install chromium for ubuntu
+	    	info_msg "add chromium-browser ppa source"
+	    	eval 'LC_ALL=C LANG=C chroot $ROOTFS_TEMP /bin/bash -c "echo | add-apt-repository ppa:saiarcot895/chromium-beta"'  
+	        eval 'LC_ALL=C LANG=C chroot $ROOTFS_TEMP /bin/bash -c "apt-get install chromium-browser"' 
 	esac
 }
 
@@ -89,7 +94,7 @@ post_install_distribution_specific()
 	info_msg "Applying post distribution specific tweaks for $DISTRIB_RELEASE"
 
 	case $DISTRIB_RELEASE in
-	bionic|focal|jammy)
+	jammy)
 		chroot $ROOTFS_TEMP /bin/bash -c "systemctl --no-reload mask ondemand.service"
 		if [ "$DISTRIB_TYPE" != "minimal" ]; then
             echo "disable some useless service"
