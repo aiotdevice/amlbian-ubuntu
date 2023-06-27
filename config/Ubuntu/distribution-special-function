@@ -74,12 +74,12 @@ install_distribution_specific()
 		sed -i "s/#RateLimitIntervalSec=.*/RateLimitIntervalSec=30s/g" $ROOTFS_TEMP/etc/systemd/journald.conf
 		sed -i "s/#RateLimitBurst=.*/RateLimitBurst=10000/g" $ROOTFS_TEMP/etc/systemd/journald.conf
 		echo "CLUTTER_PAINT=disable-clipped-redraws:disable-culling" >> $ROOTFS_TEMP/etc/environment
-		;;
 		
 		#install chromium for ubuntu
 	    	info_msg "add chromium-browser ppa source"
 	    	eval 'LC_ALL=C LANG=C chroot $ROOTFS_TEMP /bin/bash -c "echo | add-apt-repository ppa:saiarcot895/chromium-beta"'  
 	        eval 'LC_ALL=C LANG=C chroot $ROOTFS_TEMP /bin/bash -c "apt-get install chromium-browser"' 
+		;;
 	esac
 }
 
