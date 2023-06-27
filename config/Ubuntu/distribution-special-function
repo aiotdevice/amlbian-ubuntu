@@ -78,7 +78,7 @@ install_distribution_specific()
 		#install chromium for ubuntu
 	    	info_msg "add chromium-browser ppa source"
 	    	eval 'LC_ALL=C LANG=C chroot $ROOTFS_TEMP /bin/bash -c "echo | add-apt-repository ppa:saiarcot895/chromium-beta"'  
-	        eval 'LC_ALL=C LANG=C chroot $ROOTFS_TEMP /bin/bash -c "apt-get install chromium-browser"' 
+	        eval 'LC_ALL=C LANG=C chroot $ROOTFS_TEMP /bin/bash -c "apt-get -y install chromium-browser"' 
 		;;
 	esac
 }
