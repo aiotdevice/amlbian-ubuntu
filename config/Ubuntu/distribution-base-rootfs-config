@@ -16,7 +16,7 @@ case $DISTRIB_TYPE in
 		PACKAGE_LIST_DESKTOP+=" $PACKAGE_LIST_OFFICE"
 		PACKAGE_LIST_DESKTOP+=" desktop-base software-properties-gtk gnome-terminal gnome-tweaks gnome-screenshot"
 		([[ $DISTRIB_RELEASE == focal ]] || [[ $DISTRIB_RELEASE == jammy ]]) && PACKAGE_LIST_DESKTOP+=" yaru-theme-gtk yaru-theme-icon yaru-theme-sound"
-		PACKAGE_LIST_DESKTOP+=" ubuntu-desktop update-manager"
+		PACKAGE_LIST_DESKTOP+=" ubuntu-desktop update-manager libgdk-pixbuf2.0-bin "
 	;;
 esac
 
