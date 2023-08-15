@@ -106,7 +106,7 @@ post_install_distribution_specific()
 	# Enable autologin for default user
 	if [ -e $ROOTFS_TEMP/etc/gdm3/custom.conf ]; then
 		sed -i "s/#  AutomaticLoginEnable =.*/AutomaticLoginEnable=true/" $ROOTFS_TEMP/etc/gdm3/custom.conf
-		sed -i "s/#  AutomaticLogin =.*/AutomaticLogin=root/" $ROOTFS_TEMP/etc/gdm3/custom.conf
+		sed -i "s/#  AutomaticLogin =.*/AutomaticLogin=amlbian/" $ROOTFS_TEMP/etc/gdm3/custom.conf
 	fi
 
 	sed -i 's/#LogLevel=info/LogLevel=warning/' $ROOTFS_TEMP/etc/systemd/system.conf
