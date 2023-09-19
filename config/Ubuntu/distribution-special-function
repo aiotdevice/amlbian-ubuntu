@@ -131,6 +131,7 @@ post_install_distribution_specific()
 
 	# add for debug tools
 	if [ "$BUILD_TYPE" == develop ]; then
+		info_msg "Build type is develop"
 		# install ps_mem tool for tracing process memory
 		# shell_chroot "pip3 install ps_mem"
 	fi
