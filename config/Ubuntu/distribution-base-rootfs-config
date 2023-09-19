@@ -5,7 +5,6 @@ case $DISTRIB_TYPE in
 	xfce)
 		PACKAGE_LIST_DESKTOP+=" $PACKAGE_LIST_OFFICE"
 		PACKAGE_LIST_DESKTOP+=" xfce4 lxtask xfce4-screenshooter xfce4-notifyd xfce4-terminal desktop-base software-properties-gtk thunar-archive-plugin xfce4-power-manager"
-		PACKAGE_LIST_DESKTOP+=" update-manager"
 	;;
 	lxde)
 		PACKAGE_LIST_DESKTOP+=" $PACKAGE_LIST_OFFICE"
@@ -16,7 +15,7 @@ case $DISTRIB_TYPE in
 		PACKAGE_LIST_DESKTOP+=" $PACKAGE_LIST_OFFICE"
 		PACKAGE_LIST_DESKTOP+=" desktop-base software-properties-gtk gnome-terminal gnome-tweaks gnome-screenshot gnome-bluetooth"
 		([[ $DISTRIB_RELEASE == focal ]] || [[ $DISTRIB_RELEASE == jammy ]]) && PACKAGE_LIST_DESKTOP+=" yaru-theme-gtk yaru-theme-icon yaru-theme-sound"
-		PACKAGE_LIST_DESKTOP+=" ubuntu-desktop update-manager libgdk-pixbuf2.0-bin "
+		PACKAGE_LIST_DESKTOP+=" ubuntu-desktop libgdk-pixbuf2.0-bin "
 	;;
 esac
 
@@ -35,7 +34,7 @@ if [ "$BUILD_TYPE" == develop ]; then
 	PACKAGE_LIST_DESKTOP+=" glmark2-es2-wayland"
 	
 	# add common debug tool here for develop version
-	PACKAGE_LIST+=" silversearcher-ag v4l-utils tilix adb "
+	PACKAGE_LIST+=" silversearcher-ag v4l-utils tilix adb python3-pip "
 fi
 
 

@@ -125,6 +125,17 @@ post_install_distribution_specific()
 		ln -sf  "$ROOTFS_TEMP"/usr/lib/libMali.so "$ROOTFS_TEMP"/usr/lib/aarch64-linux-gnu/qt5/plugins/wayland-graphics-integration-client/libqt-plugin-wayland-egl.so
 		ls -al "$ROOTFS_TEMP"/usr/lib/aarch64-linux-gnu/qt5/plugins/wayland-graphics-integration-client/libqt-plugin-wayland-egl.so
 	fi
+
+	# remove unused packages
+	shell_chroot "apt-get autoremove --purge update-manager -y"
+
+	# add for debug tools
+	if [ "$BUILD_TYPE" == develop ]; then
+		# install ps_mem tool for tracing process memory
+		shell_chroot "pip3 install ps_mem"
+	fi
+
+	shell_chroot "apt update -y"
 }
 
 
