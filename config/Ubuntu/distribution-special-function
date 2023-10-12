@@ -118,26 +118,6 @@ post_install_distribution_specific()
 		echo "%sudo	ALL=(ALL) NOPASSWD: ALL" >> $ROOTFS_TEMP/etc/sudoers
 	fi
 
-	# support GPU for QTwayland5wayland
-	if [ -f "$ROOTFS_TEMP"/usr/lib/aarch64-linux-gnu/qt5/plugins/wayland-graphics-integration-client/libqt-plugin-wayland-egl.so ]; then
-		ls -al "$ROOTFS_TEMP"/usr/lib/aarch64-linux-gnu/qt5/plugins/wayland-graphics-integration-client/libqt-plugin-wayland-egl.so
-		rm "$ROOTFS_TEMP"/usr/lib/aarch64-linux-gnu/qt5/plugins/wayland-graphics-integration-client/libqt-plugin-wayland-egl.so
-		ln -sf  "$ROOTFS_TEMP"/usr/lib/libMali.so "$ROOTFS_TEMP"/usr/lib/aarch64-linux-gnu/qt5/plugins/wayland-graphics-integration-client/libqt-plugin-wayland-egl.so
-		ls -al "$ROOTFS_TEMP"/usr/lib/aarch64-linux-gnu/qt5/plugins/wayland-graphics-integration-client/libqt-plugin-wayland-egl.so
-	fi
-
-	#prevent the display protocol modified by open source software (X11)
-    	if [ -f "$ROOTFS_TEMP"/usr/lib/aarch64-linux-gnu/libwayland-egl.so.1.20.0 ]; then
-		ls -al "$ROOTFS_TEMP"/usr/lib/aarch64-linux-gnu/libwayland-egl.so.1.20.0
-		ln -sf  "$ROOTFS_TEMP"/usr/lib/libMali.so "$ROOTFS_TEMP"/usr/lib/aarch64-linux-gnu/libwayland-egl.so.1.20.0
-	fi
-
-    	#prevent the clutter modified by open source software 
-    	if [ -f "$ROOTFS_TEMP"/usr/lib/aarch64-linux-gnu/libEGL.so.1.1.0 ]; then
-		ls -al "$ROOTFS_TEMP"/usr/lib/aarch64-linux-gnu/libEGL.so.1.1.0
-		ln -sf  "$ROOTFS_TEMP"/usr/lib/libMali.so "$ROOTFS_TEMP"/usr/lib/aarch64-linux-gnu/libEGL.so.1.1.0
-	fi
-
 	# remove unused packages
 	shell_chroot "apt-get autoremove --purge update-manager -y"
 
