@@ -1,5 +1,10 @@
 #!/bin/bash
 
+PACKAGE_LIST_DESKTOP+=" pavucontrol pavumeter blueman libpam-gnome-keyring gnome-online-accounts gkbd-capplet gnome-calculator gnome-calendar \
+			gnome-characters gnome-disk-utility gnome-font-viewer gnome-logs gnome-mahjongg gnome-sudoku gnome-system-monitor \
+			gnome-todo gnome-user-docs gnome-video-effects gnome-power-manager libgnome-autoar-0-0 libgnome-autoar-0-0 \
+			gnome-todo-common gnome-todo gnome-orca libgnome-bluetooth13 pulseaudio-module-bluetooth pulseaudio \
+			network-manager-gnome network-manager-openvpn-gnome gnome-keyring gnome-system-tools libcanberra-pulse"
 
 case $DISTRIB_TYPE in
 	xfce)
@@ -47,5 +52,24 @@ fi
 # apt-cacher-ng mirror configuration
 APT_MIRROR=$DEBIAN_MIRROR
 
+# add chromium-browser ppa source
+add_chromium_ppa_source() {
+	info_msg "add chromium-browser ppa source"
+	eval 'LC_ALL=C LANG=C chroot $ROOTFS_TEMP /bin/bash -c "echo | add-apt-repository ppa:saiarcot895/chromium-beta"'
+}
 
+## Install  check-language-support
+Install_check_language_support() {
+	## For chinese language and input method
+	if [[ $SUPPORT_LANGUAGE == CHS ]] ; then
+		#shell_chroot "apt-get install language-pack-zh-hans -y"
+		#shell_chroot "apt install $(check-language-support) -y"
+		info_msg "Installing check-language-support"
+		if [ $DISTRIB_RELEASE != "bullseye" ] && [ $DISTRIB_RELEASE != "bookworm" ];then
+			info_msg "Installing chromium-browser-l10n"
+			eval 'LC_ALL=C LANG=C chroot $ROOTFS_TEMP /bin/bash -c "apt-get install chromium-browser-l10n=1:107.0.5304.62-0ubuntu1~ppa1~22.04.1 -y"'
+		fi
+		shell_chroot "apt install _AML_PRE_BRACKET_check-language-support_AML_POST_BRACKET_ -y"
+	fi
+}
 
