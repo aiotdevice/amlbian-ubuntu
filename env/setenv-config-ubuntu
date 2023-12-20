@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# amlbian build configs
+
+
+DISTRIBUTION_ARRAY+=("Ubuntu")
+DISTRIBUTION_ARRAY_DESC+=("Ubuntu")
+Ubuntu_RELEASE_ARRAY=("jammy")
+Ubuntu_RELEASE_VERSION_ARRAY=("22.04")
+Ubuntu_RELEASE_ARRAY_DESC=("Ubuntu 22.04")
+Ubuntu_TYPE_ARRAY=("server" "minimal" "xfce" "lxde" "gnome")
+Ubuntu_TYPE_ARRAY_DESC=("Headless Image With Essential Packages"\
+						"Minimal Image With Very Basic Packages"\
+						"Desktop Image With XFCE Desktop"\
+						"Desktop Image With LXDE Desktop"\
+						"Desktop Image With GNOME Desktop")
+Ubuntu_RELEASE_ARRAY_LEN=${#Ubuntu_RELEASE_ARRAY[@]}
+Ubuntu_TYPE_ARRAY_LEN=${#Ubuntu_TYPE_ARRAY[@]}
