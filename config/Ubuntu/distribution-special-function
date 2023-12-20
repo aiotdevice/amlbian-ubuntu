@@ -33,8 +33,6 @@ create_sources_list()
 	esac
 }
 
-
-
 install_distribution_specific()
 {
 	# overload
@@ -138,4 +136,10 @@ tweaks_distribution() {
 	[[ -f $ROOTFS_TEMP/etc/legal ]] && rm $ROOTFS_TEMP/etc/legal
 }
 
-
+# Get accelerated back for chromium
+accelerate_setting_chromium() {
+	if [ -d /usr/lib/chromium-browser/ ]; then
+		ln -fs /usr/lib/aarch64-linux-gnu/libGLESv2.so /usr/lib/chromium-browser/libGLESv2.so
+		ln -fs /usr/lib/aarch64-linux-gnu/libEGL.so /usr/lib/chromium-browser/libEGL.so
+	fi
+}
