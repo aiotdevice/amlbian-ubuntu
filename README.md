@@ -7,6 +7,7 @@ main : https://github.com/aiotdevice/amlbian-ubuntu/tree/main
 V1.0 : https://github.com/aiotdevice/amlbian-ubuntu/tree/V1.0_20230430
 V2.0 : https://github.com/aiotdevice/amlbian-ubuntu/tree/V2.0_20230602
 V3.0 : https://github.com/aiotdevice/amlbian-ubuntu/tree/v3.0_20230725
+V4.0 : https://github.com/aiotdevice/amlbian-ubuntu/tree/v4.0_20231130
 ```
 
 
