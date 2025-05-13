@@ -67,7 +67,7 @@ Install_check_language_support() {
 		info_msg "Installing check-language-support"
 		if [ $DISTRIB_RELEASE != "bullseye" ] && [ $DISTRIB_RELEASE != "bookworm" ];then
 			info_msg "Installing chromium-browser-l10n"
-			eval 'LC_ALL=C LANG=C chroot $ROOTFS_TEMP /bin/bash -c "apt-get install chromium-browser-l10n=1:107.0.5304.62-0ubuntu1~ppa1~22.04.1 -y"'
+			eval 'LC_ALL=C LANG=C chroot $ROOTFS_TEMP /bin/bash -c "apt-get install chromium-browser-l10n=1:107.0.5304.62-0ubuntu1~ppa1~22.04.2 -y"'
 		fi
 		shell_chroot "apt install _AML_PRE_BRACKET_check-language-support_AML_POST_BRACKET_ -y"
 	fi
